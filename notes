@@ -1,0 +1,16 @@
+
+
+
+pip:
+    pip install -U sqlalchemy faker langchain langchain-community langchain-cohere
+
+
+
+COHERE_API_KEY:
+    I hard codded the API key for practical reasons
+        as its not the best practice to hard code api keys
+
+            for security reasons and by making the code flexiable
+                    but not relying on manual edit
+                    instead enviorment variables
+
