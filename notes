@@ -2,7 +2,7 @@
 
 
 pip:
-    pip install -U sqlalchemy faker langchain langchain-community langchain-cohere
+    pip install -U sqlalchemy faker langchain langchain-community langchain-cohere alembic
 
 
 
@@ -14,3 +14,46 @@ COHERE_API_KEY:
                     but not relying on manual edit
                     instead enviorment variables
 
+
+Database choices:
+
+    Tables:
+
+        Eference Tables (Ref_*) act as lookup tables for statuses and types
+
+        Customer Management: Handles customer details and their preferred payment methods.
+
+        Product Catalog: Products are categorized by types, which can be hierarchical 
+        (self-referencing Ref_Product_Types).
+
+        Order Processing: Tracks orders, their specific items, 
+        and the status of each item independently.
+
+        Billing & Shipping: Separates Invoices, Payments,
+        and Shipments into distinct entities, allowing for partial shipments or complex billing cycles.
+
+    Migrations:
+
+        using alembic module
+        
+            alembic revision --autogenerate
+                (python manage.py makemigrations)
+        
+            alembic upgrade head 
+                (python manage.py migrate) 
+
+
+        Steps:
+
+            alembic init alembic
+
+                creates an alembic.ini file and an alembic/ directory.
+
+            Configure Database URL
+
+                Open the alembic.ini file created in your root directory.
+                Find the line starting with sqlalchemy.url and set it to your database connection string.
+
+            Connect Your Schema (env.py)
+            
+                tell Alembic where your Base models are so it can detect them
